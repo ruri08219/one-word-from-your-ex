@@ -24,3 +24,7 @@ OUTPUT_PATH.write_text(WORD, encoding="utf-8")
 # Round-trip assert: read the file back and confirm it is exactly the word.
 if OUTPUT_PATH.read_text(encoding="utf-8") != WORD:
     raise AssertionError("round-trip check failed: entry.txt does not match the word")
+
+# Byte-level round-trip: exact UTF-8 bytes, no BOM, no trailing newline.
+if OUTPUT_PATH.read_bytes() != WORD.encode("utf-8"):
+    raise AssertionError("round-trip check failed: entry.txt bytes do not match the word")
